@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "PieLegend";
+}
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/echarts.js" )></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        initial();
+    })
+
+
+    function initial() {
+        var myPieChart = echarts.init(document.getElementById('mainPieChart')); //EChart实例
+
+        myPieChart.showLoading({
+            text: '读取数据中...' //loading，是在读取数据的时候显示
+        });
+
+        //要展示的数据
+        var pieData = [
+            { name: 'PEK', value: 70 },
+            { name: 'CTU', value: 68 },
+            { name: 'SHA', value: 48 },
+            { name: 'PVG', value: 40 },
+            { name: 'THQ', value: 32 }
+        ];
+
+        myPieChart.setOption({ //绘制图案
+            title: {
+                text: '测试',
+                subtext: '参考实例：https://echarts.apache.org/examples/zh/editor.html?c=pie-legend',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: { //图例样式
+                type: 'scroll',
+                top: 50,
+                bottom: 20,
+            },
+            series: [{
+                name: "机场比例",
+                type: 'pie',
+                radius: '65%',             //半径
+                center: ['50%', '50%'],    //从中心开始的位置
+                data: pieData,             //数据
+                animation: true,           //是否开启动画效果
+                label: {
+                    position: 'outer',
+                    alignTo: 'none',
+                    bleedMargin: 5
+                },
+                left: 0,
+                right: '66.6667%',
+                top: 0,
+                bottom: 0
+            }],
+            //设置饼状图每个颜色块的颜色
+            color: ['#4ECDC4', '#FCB322', '#FF6B6B', '#4FC1E9', '#444C57']
+        }, true);
+
+        myPieChart.hideLoading();//隐藏读取数据提示信息
+    }
+
+</script>
+
+
+<h2>饼图-图例</h2>
+<div>
+    <table style="text-align:center;" class="InternalArea" width="876">
+        <tr>
+            <td id="mainPieChart" align="left" width="1000" height="550" style="padding-left:0px"></td>
+        </tr>
+    </table>
+</div>
